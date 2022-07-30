@@ -1,21 +1,35 @@
-pipeline {
+pipeline{
     agent any
-    stages {
-        stage ('Compile Stage') {
-
-            steps {
-                    bat 'mvn clean compile'
-                  }
+    stages{
+        stage('Git clone'){
+            steps{
+                bat "mvn validate"
             }
-        stage ('Testing Stage') {
-            steps {
-                    bat 'mvn test'
-              }
-        }
-        stage ('Install Stage') {
-            steps {
-                    bat 'mvn install'
+        }        
+        stage('maven compile'){
+            steps{
+                bat "mvn compile"
             }
         }
+        stage('test'){
+            steps{
+                bat "mvn test"
+            }
+        }
+        stage('package'){
+            steps{
+                bat "mvn package"
+            }
+        }
+        stage('verify'){
+            steps{
+                bat "mvn verify"
+            }
+        }
+         stage('install'){
+            steps{
+                bat "mvn install"
+            }
+        }         
     }
 }
